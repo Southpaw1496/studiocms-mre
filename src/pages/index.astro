@@ -1,5 +1,9 @@
 ---
+import { getCollection } from "astro:content";
+import { render } from "studiocms:markdown-remark";
 
+const posts = await getCollection("blog");
+const rendered = (await render(posts[0].body ?? "Nothing")).html.toString()
 ---
 
 <html lang="en">
@@ -11,6 +15,6 @@
 		<title>Astro</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<Fragment set:html={rendered} />
 	</body>
 </html>
